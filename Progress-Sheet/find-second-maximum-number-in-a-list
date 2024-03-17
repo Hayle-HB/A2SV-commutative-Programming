@@ -1,0 +1,15 @@
+if __name__ == '__main__':
+    n = int(input())
+    arr = list(map(int, input().split()))
+    
+    winner = float('-inf')
+    currRunnerup = float('-inf')
+    
+    for score in arr:
+        if score > winner:
+            currRunnerup = winner
+            winner = score
+        elif score < winner and score > currRunnerup:
+            currRunnerup = score
+    
+    print(currRunnerup)
