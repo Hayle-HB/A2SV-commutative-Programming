@@ -1,0 +1,13 @@
+A = set(map(int, input().split()))
+
+B = int(input())
+
+is_strict_superset = True
+
+for _ in range(B):
+    sun_sets = set(map(int, input().split()))
+    if not A.issuperset(sun_sets):
+        is_strict_superset = False
+        break
+
+print(is_strict_superset)
