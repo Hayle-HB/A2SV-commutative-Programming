@@ -1,0 +1,11 @@
+def english_newspaper_only(english_subscribers, french_subscribers):
+    english_only = english_subscribers.difference(french_subscribers)
+    return len(english_only)
+
+n = int(input())
+english_subscribers = set(map(int, input().split()))
+m = int(input())
+french_subscribers = set(map(int, input().split()))
+
+result = english_newspaper_only(english_subscribers, french_subscribers)
+print(result)
