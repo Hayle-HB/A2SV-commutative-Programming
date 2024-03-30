@@ -1,0 +1,14 @@
+class Solution:
+    def moveZeroes(self, nums):
+        nonZeroCount = 0
+        
+        # Move non-zero elements to the front
+        for num in nums:
+            if num != 0:
+                nums[nonZeroCount] = num
+                nonZeroCount += 1
+        
+        # Fill the remaining elements with zeros
+        while nonZeroCount < len(nums):
+            nums[nonZeroCount] = 0
+            nonZeroCount += 1
