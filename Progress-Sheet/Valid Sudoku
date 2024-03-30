@@ -1,0 +1,27 @@
+from typing import List
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        for i in range(9):
+            row_set = set()
+            col_set = set()
+            box_set = set()
+            for j in range(9):
+                # Check rows
+                if board[i][j] != '.' and board[i][j] in row_set:
+                    return False
+                row_set.add(board[i][j])
+                
+                # Check columns
+                if board[j][i] != '.' and board[j][i] in col_set:
+                    return False
+                col_set.add(board[j][i])
+                
+                # Check 3x3 boxes
+                boxRow = 3 * (i // 3) + j // 3
+                boxCol = 3 * (i % 3) + j % 3
+                if board[boxRow][boxCol] != '.' and board[boxRow][boxCol] in box_set:
+                    return False
+                box_set.add(board[boxRow][boxCol])
+        
+        return True
