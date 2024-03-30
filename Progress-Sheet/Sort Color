@@ -1,0 +1,56 @@
+from typing import List
+
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        count = [0, 0, 0]
+
+        for i in nums:
+            if i == 0:
+                count[0] += 1
+            elif i == 1:
+                count[1] += 1
+            else:
+                count[2] += 1
+        
+        i = 0
+        for _ in range(count[0]):
+            nums[i] = 0
+            i += 1
+        
+        for _ in range(count[1]):
+            nums[i] = 1
+            i += 1
+        
+        for _ in range(count[2]):
+            nums[i] = 2
+            i += 1
+
+
+
+
+
+""" we can use two pointer algorithm to solve this problem in the following way, but I am confortable with the above 
+
+class Solution(object):
+    def sortColors(self, nums):
+        red=white=0
+        blue=len(nums)-1
+
+        while white<=blue:
+            curr=nums[white]
+            if curr==0:
+                nums[white]=nums[red]
+                nums[red]=0
+                red+=1
+                white+=1
+            elif curr==1:
+                white+=1
+            else:
+                nums[white]=nums[blue]
+                nums[blue]=2
+                blue-=1    
+
+"""
