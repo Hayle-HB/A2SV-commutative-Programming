@@ -1,0 +1,47 @@
+#My First Code
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nums1.sort()
+        nums2.sort()
+        ans = []
+        for i in nums1:
+            if self.binarySearch(nums2, i):
+                ans.append(i)
+                nums2.remove(i)
+        return ans
+
+
+
+    def binarySearch(self, num: List[int],  key : int) -> bool:
+        left = 0
+        right = len(num)
+
+        while left < right:
+            mid =( left + right )// 2
+            if num[mid] == key:
+                return True
+
+            elif num[mid] < key:
+                left += 1
+            else:
+                right -= 1
+        return False
+
+""" 
+My Second COde
+
+class Solution:
+    def intersect(self, nums1, nums2):
+        counter1 = Counter(nums1)
+        counter2 = Counter(nums2)
+
+        intersection = (counter1 & counter2)
+
+       
+        result = []
+        for num, count in intersection.items():
+            result.extend([num] * count)
+
+        return result
+
+"""
