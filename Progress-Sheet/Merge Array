@@ -1,0 +1,26 @@
+def mergeArrays(n, m):
+    ans = []
+
+    idx_n = 0
+    idx_m = 0
+
+    while idx_m < len(m) and idx_n < len(n):
+        if n[idx_n] < m[idx_m]:
+            ans.append(n[idx_n])
+            idx_n += 1
+        else:
+            ans.append(m[idx_m])
+            idx_m += 1
+
+    ans.extend(n[idx_n:])
+    ans.extend(m[idx_m:])
+    
+    return ans
+
+size_n, size_m = map(int, input().split())
+
+n = list(map(int, input().split()))
+m = list(map(int, input().split()))
+
+result = mergeArrays(n, m)
+print(*result)
