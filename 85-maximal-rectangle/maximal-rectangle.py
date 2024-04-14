@@ -14,7 +14,6 @@ class Solution:
                     dp[(i,j)] = (x,y)
                     ans = max(x,y,ans)
                     minWidth = x
-                    # verical max possible
                     for r in range(i-1,i-y,-1):
                         minWidth = min(minWidth,dp[(r,j)][0])
                         ans = max(ans,minWidth*(i-r+1))
