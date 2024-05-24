@@ -6,9 +6,8 @@
 #         self.right = right
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        def preorder(node):
-            if not node:
-                return [None]
-            return [node.val] + preorder(node.left) + preorder(node.right)
-        
-        return preorder(p) == preorder(q)
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        return p.val == q.val and self.isSameTree(q.left, p.left) and self.isSameTree(p.right, q.right)
