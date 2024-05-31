@@ -1,32 +1,31 @@
 class Solution:
     def findRadius(self, houses, heaters):
-        def binary_search(house, heaters):
-            low = 0
-            high = len(heaters) - 1
-                                                                            
-            min_left = float('-inf')  
-            max_right = float('inf')  
-
-            while low <= high:
-                mid = (low + high) // 2  
-
-                if house == heaters[mid]: 
-                    return 0  
-                elif house > heaters[mid]:
-                    min_left = heaters[mid]  
-                    low = mid + 1  
-                else:
-                    max_right = heaters[mid]  
-                    high = mid - 1 
-            
-            return min(house - min_left, max_right - house)
-
         heaters.sort()
 
-        max_radius = float('-inf')
+        result = float('-inf')
 
         for house in houses:
-            min_radius = binary_search(house, heaters)
-            max_radius = max(max_radius, min_radius)
+            min_rad = self.find_min_rad(house, heaters)
+            result = max(result, min_rad)
+        return result
+        
+    def find_min_rad(self, house, heaters):
+        low = 0
+        high = len(heaters) - 1
 
-        return max_radius
+        min_dist = float('inf')
+
+        while low <= high:
+            mid = (low + high) // 2
+
+            if heaters[mid] == house:
+                return 0
+
+            if heaters[mid] < house:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+            min_dist = min(min_dist, abs(house - heaters[mid]))
+
+        return min_dist
