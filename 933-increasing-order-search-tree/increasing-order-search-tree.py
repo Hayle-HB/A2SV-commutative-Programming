@@ -4,25 +4,22 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
     def increasingBST(self, root: TreeNode) -> TreeNode:
-        current = root
-        stack = []
-        dummy = TreeNode(0)  
-        prev = dummy  
+        dummy = TreeNode(0)
+        self.curr = dummy
+        def inorder(node):
+            if not node:
+                return None
+                
+            inorder(node.left)
+
+            node.left = None
+            self.curr.right = node
+            self.curr = node
+
+            inorder(node.right)
         
-        while current or stack:
-            while current:
-                stack.append(current)
-                current = current.left
+        inorder(root)
 
-            current = stack.pop()
-
-            prev.right = current  
-            current.left = None 
-            prev = current  
-
-            current = current.right
-
-        return dummy.right 
+        return dummy.right
