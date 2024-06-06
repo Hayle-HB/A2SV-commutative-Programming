@@ -1,0 +1,50 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'superDigit' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. STRING n
+#  2. INTEGER k
+#
+def superDigit(n, k):
+  
+    def sum_of_digits(num):
+        return sum(int(digit) for digit in num)
+    
+
+    initial_sum = sum_of_digits(n)
+    
+    effective_sum = initial_sum * k
+    
+    
+    def find_super_digit(num):
+        if num < 10:
+            return num
+        else:
+            return find_super_digit(sum(int(digit) for digit in str(num)))
+    
+   
+    return find_super_digit(effective_sum)
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    n = first_multiple_input[0]
+
+    k = int(first_multiple_input[1])
+
+    result = superDigit(n, k)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
