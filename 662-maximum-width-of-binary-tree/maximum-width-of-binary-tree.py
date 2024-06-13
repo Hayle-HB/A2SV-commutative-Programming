@@ -1,30 +1,30 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
 class Solution:
     def widthOfBinaryTree(self, root: TreeNode) -> int:
         if not root:
             return 0
         
-        self.max_width = 0
-        
-        def backtrack(node: TreeNode, depth: int, position: int, levels: dict):
-            if not node:
-                return
-            
-            if depth not in levels:
-                levels[depth] = position
-            
-            self.max_width = max(self.max_width, position - levels[depth] + 1)
-            
-            backtrack(node.left, depth + 1, 2 * position, levels)
-            backtrack(node.right, depth + 1, 2 * position + 1, levels)
-        
-        levels = {}
-        backtrack(root, 0, 0, levels)
-        
-        return self.max_width
+        ans = 0
+        q = deque([(root, 0)]) 
+
+        while q:
+            size = len(q)
+            mmin = q[0][1]
+            first, last = 0, 0
+
+            for _ in range(size):
+                node, curId = q.popleft()
+                curId -= mmin  
+
+                if _ == 0:
+                    first = curId
+                if _ == size - 1:
+                    last = curId
+
+                if node.left:
+                    q.append((node.left, curId * 2 + 1))
+                if node.right:
+                    q.append((node.right, curId * 2 + 2))
+
+            ans = max(ans, last - first + 1)
+
+        return ans
