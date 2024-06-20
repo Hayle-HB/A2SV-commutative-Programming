@@ -8,7 +8,7 @@ class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-        to_left = False #we can utilize this variable to make the turn to the left and right but we can also reverse after we get the answer
+        to_left = False
 
         queue = deque([root, None])
 
@@ -19,7 +19,12 @@ class Solution:
             curr = queue.popleft()
 
             if curr == None:
-                result.append(curr_lev)
+                if to_left:
+                    result.append(curr_lev[::-1])
+                    to_left = False
+                else:
+                    result.append(curr_lev)   
+                    to_left = True
                 curr_lev = []
 
                 if queue:
@@ -32,8 +37,6 @@ class Solution:
                 
                 if curr.right:
                     queue.append(curr.right)
-        
-        for i in range(1, len(result), 2):
-            result[i] = result[i][::-1]
+
         return result
 
