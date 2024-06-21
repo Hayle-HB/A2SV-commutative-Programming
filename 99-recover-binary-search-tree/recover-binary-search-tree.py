@@ -6,30 +6,40 @@
 #         self.right = right
 class Solution:
     def recoverTree(self, root: Optional[TreeNode]) -> None:
-        """
-        Do not return anything, modify root in-place instead.
-        """
-
-        self.prev = self.first =  self.second = None
-
-
-        def inorder(node):
-            if not node:
-                return
+            first = second = prev = None
             
-            inorder(node.left)
-
-            if self.prev and self.prev.val > node.val:
-                if not self.first:
-                    self.first = self.prev
+            current = root
+            while current:
+                if current.left is None:
+                    # Process current node
+                    if prev and prev.val > current.val:
+                        if first is None:
+                            first = prev
+                        second = current
+                    prev = current
+                    current = current.right
+                else:
+                    # Find the inorder predecessor of current
+                    pre = current.left
+                    while pre.right and pre.right != current:
+                        pre = pre.right
+                    
+                    if pre.right is None:
+                        # Establish link from predecessor to current
+                        pre.right = current
+                        current = current.left
+                    else:
+                        # Remove the link
+                        pre.right = None
+                        # Process current node
+                        if prev and prev.val > current.val:
+                            if first is None:
+                                first = prev
+                            second = current
+                        prev = current
+                        current = current.right
+            
+            # Swap the values of the first and second nodes to correct the BST
+            if first and second:
+                first.val, second.val = second.val, first.val
                 
-                self.second = node
-            self.prev = node
-            inorder(node.right)
-
-        inorder(root)
-        self.first.val, self.second.val = self.second.val, self.first.val
-
-
-
-        
