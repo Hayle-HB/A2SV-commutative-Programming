@@ -1,7 +1,13 @@
 class Solution:
     def fib(self, n: int) -> int:
-        if n == 0 or n == 1:
-            return n
+        memo = {0: 0, 1: 1}
         
-        return self.fib(n-1) + self.fib(n-2)
+        def help(n):
+            if n in memo:
+                return memo[n]
+            else:
+                memo[n] = help(n-2) + help(n-1)
+                return memo[n]
         
+        return help(n)
+
