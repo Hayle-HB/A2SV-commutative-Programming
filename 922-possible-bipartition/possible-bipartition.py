@@ -1,5 +1,7 @@
 class Solution:
     def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
+        #union find approch but we can solve this question by the concept of Bipartile coloring 
+        # https://leetcode.com/problems/possible-bipartition/submissions/1293774089/
         graph = defaultdict(list)
         for u, v in dislikes:
             graph[u].append(v)
