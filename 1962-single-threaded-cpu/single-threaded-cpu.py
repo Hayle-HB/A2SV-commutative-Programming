@@ -2,6 +2,7 @@ import heapq
 
 class Solution:
     def getOrder(self, tasks: List[List[int]]) -> List[int]:
+        
         for i in range(len(tasks)):
             tasks[i].append(i)
         
