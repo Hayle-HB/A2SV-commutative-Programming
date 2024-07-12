@@ -1,36 +1,30 @@
-from collections import deque
+from collections import defaultdict, deque
+from typing import List
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
-        counts = [0] * n
-        links = [0] * n
+        if n == 1:
+            return [0]
         
-        for edge in edges:
-            links[edge[0]] ^= edge[1]
-            counts[edge[0]] += 1
-            links[edge[1]] ^= edge[0]
-            counts[edge[1]] += 1
+        neighbors = defaultdict(list)
+        indegree = [0] * n
         
-        Qu = deque()
-        dists = [0] * n
+        for u, v in edges:
+            neighbors[u].append(v)
+            neighbors[v].append(u)
+            indegree[u] += 1
+            indegree[v] += 1
         
-        for i in range(n):
-            if counts[i] == 1:
-                Qu.append(i)
+        leaves = deque([i for i in range(n) if indegree[i] == 1])
         
-        stp = 1
-        while Qu:
-            size = len(Qu)
-            for _ in range(size):
-                tmp = Qu.popleft()
-                links[links[tmp]] ^= tmp
-                counts[links[tmp]] -= 1
-                if counts[links[tmp]] == 1:
-                    dists[links[tmp]] = max(stp, dists[links[tmp]])
-                    Qu.append(links[tmp])
-            stp += 1
+        remain_leavs = n
+        while remain_leavs > 2:
+            remain_leavs -= len(leaves)
+            for _ in range(len(leaves)):
+                leaf = leaves.popleft()
+                for neighbor in neighbors[leaf]:
+                    indegree[neighbor] -= 1
+                    if indegree[neighbor] == 1:
+                        leaves.append(neighbor)
         
-        max_dist = max(dists)
-        res = [i for i in range(n) if dists[i] == max_dist]
-        
-        return res
+        return list(leaves)
