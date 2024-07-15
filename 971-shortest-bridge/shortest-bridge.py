@@ -13,7 +13,7 @@ class Solution:
     def shortestBridge(self, grid: List[List[int]]) -> int:
         n, m = len(grid), len(grid[0])
 
-        def dfs(r, c, visit): 
+        def dfs(r, c, visit):  # mark all first islands with first island
             grid[r][c] = 'first island'
             visit.add((r, c))
             for dr, dc in self.move:
@@ -30,7 +30,7 @@ class Solution:
                         return (i, j)
             return None
 
-        def get_first():
+        def get_first(): # get all the combination of first islands
             queue = deque()
             for i in range(n):
                 for j in range(m):
