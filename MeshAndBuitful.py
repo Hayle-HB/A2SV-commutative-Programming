@@ -10,11 +10,11 @@ def merge_sort(left, right):
 
 def merge(left, mid, right):
     
-    if p[left] > p[right]:
-        p[left:mid+1],p[mid+1:right+1] = p[mid+1:right+1],p[left:mid+1]
+    if num[left] > num[right]:
+        num[left:mid+1],num[mid+1:right+1] = num[mid+1:right+1],num[left:mid+1]
         swaps[0] += 1
         return True
-    elif p[mid] < p[mid+1]:
+    elif num[mid] < num[mid+1]:
         return True
     
     return False
@@ -23,7 +23,7 @@ t = int(input())
 
 while t > 0:
     m = int(input())
-    p = list(map(int, input().split()))
+    num = list(map(int, input().split()))
 
     swaps = [0]
     if merge_sort(0, m-1):
