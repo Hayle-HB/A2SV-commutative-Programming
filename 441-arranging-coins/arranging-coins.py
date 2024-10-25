@@ -1,14 +1,22 @@
 class Solution:
     def arrangeCoins(self, n: int) -> int:
 
-        total = 0
-        k = 1
-        stair  = 1
-        while stair <= n:
-            total += 1
-            k += 1
-            stair += k
-        return total
+        l = 0
+        r = n
+
+        while l <= r:
+            mid = l + (r-l) // 2
+            k = mid * (mid + 1)  // 2
+
+            if k == n:
+                return mid
+            elif k < n:
+                l = mid+1
+            else:
+                r = mid - 1
+        return r
+        
+
 
 
         
