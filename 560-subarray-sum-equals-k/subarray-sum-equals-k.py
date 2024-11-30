@@ -1,14 +1,17 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefix_sum = {0: 1}
+        prefix = {0:1}
+
+        curr_sum = 0
         count = 0
-        current_sum = 0
+        for right in range(len(nums)):
+            curr_sum += nums[right]
 
-        for num in nums:
-            current_sum += num
-            complement = current_sum - k
-            if complement in prefix_sum:
-                count += prefix_sum[complement]
-            prefix_sum[current_sum] = prefix_sum.get(current_sum, 0) + 1
 
+            comp = curr_sum - k
+
+            if comp in prefix:
+                count += prefix[comp]
+            
+            prefix[curr_sum] = prefix.get(curr_sum, 0) + 1
         return count
