@@ -1,16 +1,15 @@
 class Solution:
     def minStartValue(self, nums: List[int]) -> int:
-        minVal = 0
+        prefix = [0] * len(nums)
 
-        currSum = 0
-        for num in nums:
-            currSum += num
 
-            if currSum < 1:
-                temp = minVal
-                minVal += abs(currSum) + 1
-                currSum += minVal - temp
-        
-        return minVal if minVal > 0 else 1
+        prefix[0] = nums[0]
+        less = nums[0] < 1
+        for i in range(1, len(nums)):
+            prefix[i] = prefix[i-1] + nums[i]
+            if prefix[i] < 1:
+                less = True
 
+        return -(min(prefix)-1) if less else 1
+       
         
