@@ -7,6 +7,5 @@ class Solution:
             for ch in list(word):
                 if ch not in hash:
                     all = False
-            if all:
-                count += 1
+            count += all
         return count
