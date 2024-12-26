@@ -1,19 +1,12 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        pair = [(num, idx) for idx, num in enumerate(nums)]
+        hash = {}
 
-        pair.sort(key = lambda x:x[0])
+        for idx, num in enumerate(nums):
+            comp = target - num
 
-        left, right = 0, len(nums)-1
-
-        while left < right:
-            curr = pair[left][0] + pair[right][0]
-
-            if curr == target:
-                return [pair[left][1], pair[right][1]]
-            elif curr > target:
-                right -= 1
+            if comp in hash:
+                return [idx, hash[comp]]
             else:
-                left += 1
+                hash[num]  = idx
         return []
-        
