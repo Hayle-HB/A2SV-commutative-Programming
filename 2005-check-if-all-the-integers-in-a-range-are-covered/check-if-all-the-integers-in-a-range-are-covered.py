@@ -1,10 +1,12 @@
 class Solution:
     def isCovered(self, ranges, left, right):
-        for i in range(left, right+1):
-            can = False
-            for s, e in ranges:
-                if  (s <= i and e >= i):
-                    can = True
-            if not can:
-                return False
-        return can
+        line = [0] * 52
+
+        for s, e in ranges:
+            line[s] += 1
+            line[e + 1] -= 1
+        
+        for i in range(1, len(line)):
+            line[i] += line[i-1]
+        
+        return 0 not in line[left:right+1]
