@@ -1,17 +1,29 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        if n == 0:
-            return 1
+        if n == 1:
+            return x
         if n < 0:
-            x = 1 / x
             n = -n
-        return self.pow_helper(x, n)
-    
-    def pow_helper(self, x: float, n: int) -> float:
+            x = 1/x
         if n == 0:
             return 1
-        half = self.pow_helper(x, n // 2)
-        if n % 2 == 0:
-            return half * half
-        else:
-            return half * half * x
+
+        
+
+        def help(x, n):
+            if n == 1:
+                return x
+            elif n == 0:
+                return 0
+            
+            if n % 2 == 0:
+                res =  help(x, n // 2)
+                return res * res
+            else:
+                res = help(x, n // 2)
+                return res * res * x
+        return help(x, n)
+
+                
+
+        
