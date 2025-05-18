@@ -52,8 +52,36 @@ class Solution:
                     return isPathExist(start)
 
 
-            return isPathExists_iteration_dfs(start, end)
+            def isPathExisits_iteration_bfs(start, end):
+                visited = set()
+
+                toBeVisistedNodes = deque([start])
+
+                while toBeVisistedNodes:
+
+                    for _ in range(len(toBeVisistedNodes)):
+
+                        current_node = toBeVisistedNodes.popleft()
+
+                        if current_node == end:
+                            return True
+
+                        for next_child in graph[current_node]:
+                            if next_child not in visited:
+                                visited.add(next_child)
+                                toBeVisistedNodes.append(next_child)
+                return False
+
+
+                
+            def isPathExisits_recurrsion_bfs(start, end):
+                pass
+
+
+
+            # return isPathExists_iteration_dfs(start, end)
             # return isPathExists_recurrsion_bfs(start, end)
+            return isPathExisits_iteration_bfs(start, end)
 
 
         
