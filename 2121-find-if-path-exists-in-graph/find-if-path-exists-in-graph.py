@@ -1,19 +1,59 @@
 class Solution:
-    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = collections.defaultdict(list)
-        for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
-        
-        def dfs(node, visited):
-            if node == destination:
-                return True
-            visited.add(node)
-            for neighbor in graph[node]:
-                if neighbor not in visited:
-                    if dfs(neighbor, visited):
+    def validPath(self, n: int, edges: List[List[int]], start: int, end: int) -> bool:
+            graph = defaultdict(list)
+
+
+            for nodeOne, nodeTwo in edges:
+                graph[nodeOne].append(nodeTwo)
+                graph[nodeTwo].append(nodeOne)
+            
+    
+            def isPathExists_iteration_dfs(start, end):
+
+
+                visited = set()
+
+                toBevisited = [source]
+
+
+                while toBevisited:
+
+                    currentNode = toBevisited.pop()
+
+                    if currentNode == destination:
                         return True
-            return False
+                    
+
+
+                    for next_node in graph[currentNode]:
+                        if next_node not in visited:
+                            visited.add(next_node)
+                            toBevisited.append(next_node)
+                return False
+
+            def isPathExists_recurrsion_bfs(start, end):
+
+
+                    visited = set()
+                    def isPathExist(current_node):
+
+                        if current_node == end:
+                            return True
+                        
+
+                        for next_child in graph[current_node]:
+                            if next_child not in visited:
+                                visited.add(next_child)
+                                if isPathExist(next_child):
+                                    return True
+                        
+                        return False
+                
+                    return isPathExist(start)
+
+
+            # return isPathExists_iteration_dfs()
+            return isPathExists_recurrsion_bfs(start, end)
+
+
         
-        visited = set()
-        return dfs(source, visited)
