@@ -5,9 +5,22 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        if not p and not q:
-            return True
-        if not p or not q:
-            return False
-        return p.val == q.val and self.isSameTree(q.left, p.left) and self.isSameTree(p.right, q.right)
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+
+
+        def dfs(p, q):
+            if not p and q:
+                return False
+            if not q and p:
+                return False
+            if not p and not q:
+                return True
+            
+            if p.val != q.val:
+                return False
+            
+
+            return dfs(p.left, q.left) and dfs(p.right, q.right)
+        
+        return dfs(p, q)
+        
