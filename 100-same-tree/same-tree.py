@@ -8,35 +8,27 @@ class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if not p or not q:
             return p == q
+        
 
         stack = [(p, q)]
 
 
         while stack:
 
+            a, b = stack.pop()
 
-            l, r = stack.pop()
 
-
-            if l.left and r.left:
-                stack.append((l.left, r.left))
+            if not a and not b:
+                continue
             
-            if l.left or r.left:
-                if not l.left:
-                    return False
-                if not r.left:
-                    return False
-            if l.right or r.right:
-                if not l.right:
-                    return False
-                if not r.right:
-                    return False
-            
-            if l.right and r.right:
-                stack.append((l.right, r.right))
-            if l.val != r.val:
+            if not a or not b:
                 return False
-
-        return True
+            if a.val != b.val:
+                return False
             
+
+            stack.append((a.left, b.left))
+            stack.append((a.right, b.right))
+        return True
+
         
