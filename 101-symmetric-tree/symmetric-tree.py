@@ -8,11 +8,21 @@ class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
-        def is_same(p, q):
+
+
+        def dfs(p, q):
             if not p and not q:
                 return True
+            
             if not p or not q:
-                return False         
-            return p.val == q.val and is_same(p.left, q.right) and is_same(p.right, q.left)
-        return is_same(root.left, root.right)
+                return False
+            
+            if p.val != q.val:
+                return False
+            
+ 
+            return dfs(p.left, q.right) and dfs(p.right, q.left)
+        
+        return dfs(root.left, root.right)
+        
         
